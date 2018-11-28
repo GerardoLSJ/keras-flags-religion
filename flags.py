@@ -24,6 +24,7 @@ with open("data_flags.csv") as f:
         a = line.split(',')
         #flag_data.append(a[1:5] + a[7:16] + a[18:28])
 
+        # landmass , population, language
         data = [a[1], a[4], a[5]]  
         flag_data.append(data)
 
