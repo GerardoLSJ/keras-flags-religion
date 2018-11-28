@@ -22,10 +22,11 @@ with open("data_flags.csv") as f:
     i = 0
     for line in f:
         a = line.split(',')
-        flag_data.append(a[1:5] + a[7:16] + a[18:28])
-        # print(len(a[1:5] + a[7:9] + a[18:28]))
-        # print(a[1:5] + a[7:9] + a[18:28])
-        # input()
+        #flag_data.append(a[1:5] + a[7:16] + a[18:28])
+
+        data = [a[1], a[4], a[5]]  
+        flag_data.append(data)
+
         y.append(a[6])
 
 
@@ -52,7 +53,7 @@ train_x, test_x, train_y, test_y = train_test_split(x, y, test_size=0.20)
 
 model = Sequential()
 
-model.add(Dense(23, input_shape=(23,), activation='relu', name='fc1'))
+model.add(Dense(23, input_shape=(3,), activation='relu', name='fc1'))
 model.add(Dense(100, activation='tanh', name='fc2'))
 model.add(Dense(8, activation='sigmoid', name='output'))
 
@@ -87,7 +88,7 @@ print(model.summary())
 
 # Train the model  batch_size=5,
 hist = model.fit(train_x, train_y, verbose=2,  batch_size=5, epochs=2000)
-model.save('trainedFlags.h5')  # creates a HDF5 file 'my_model.h5'
+#model.save('trainedFlags.h5')  # creates a HDF5 file 'my_model.h5'
 
 plt.figure(figsize=(10,8))
 plt.plot(hist.history['acc'], label='Accuracy')
