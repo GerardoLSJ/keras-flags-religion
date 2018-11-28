@@ -86,7 +86,8 @@ print('Neural Network Model Summary: ')
 print(model.summary())
 
 # Train the model  batch_size=5,
-hist = model.fit(train_x, train_y, verbose=2,  batch_size=2, epochs=500)
+hist = model.fit(train_x, train_y, verbose=2,  batch_size=5, epochs=2000)
+model.save('trainedFlags.h5')  # creates a HDF5 file 'my_model.h5'
 
 plt.figure(figsize=(10,8))
 plt.plot(hist.history['acc'], label='Accuracy')
