@@ -22,7 +22,7 @@ with open("data_flags.csv") as f:
     i = 0
     for line in f:
         a = line.split(',')
-        flag_data.append(a[1:5] + a[7:9] + a[18:28])
+        flag_data.append(a[1:5] + a[7:16] + a[18:28])
         # print(len(a[1:5] + a[7:9] + a[18:28]))
         # print(a[1:5] + a[7:9] + a[18:28])
         # input()
@@ -52,7 +52,7 @@ train_x, test_x, train_y, test_y = train_test_split(x, y, test_size=0.20)
 
 model = Sequential()
 
-model.add(Dense(16, input_shape=(16,), activation='relu', name='fc1'))
+model.add(Dense(16, input_shape=(23,), activation='relu', name='fc1'))
 model.add(Dense(50, activation='tanh', name='fc2'))
 model.add(Dense(8, activation='sigmoid', name='output'))
 
