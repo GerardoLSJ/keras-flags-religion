@@ -12,7 +12,7 @@ from sklearn.preprocessing import OneHotEncoder
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.optimizers import Adam
-
+from keras import optimizers
 import matplotlib.pyplot as plt
 # iris_data = load_iris() # load the iris dataset
 
@@ -53,18 +53,40 @@ train_x, test_x, train_y, test_y = train_test_split(x, y, test_size=0.20)
 model = Sequential()
 
 model.add(Dense(16, input_shape=(16,), activation='relu', name='fc1'))
-model.add(Dense(100, activation='tanh', name='fc2'))
+model.add(Dense(50, activation='tanh', name='fc2'))
 model.add(Dense(8, activation='sigmoid', name='output'))
 
 # Adam optimizer with learning rate of 0.001
-optimizer = Adam(lr=0.001)
-model.compile(optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
+#optimizer = Adam(lr=0.001)
+#model.compile(optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
+
+# sgd = optimizers.SGD(lr=0.01, clipnorm=1.)
+# model.compile(loss='mean_squared_error', optimizer='sgd', metrics=['accuracy'])
+
+#with mean_squared_error
+rms = optimizers.RMSprop(lr=0.001, rho=0.9, epsilon=None, decay=0.0)
+#60%
+nadam = optimizers.Nadam(lr=0.002, beta_1=0.9, beta_2=0.999, epsilon=None, schedule_decay=0.004)
+#60%
+adam = optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
+#69
+adamax = optimizers.Adamax(lr=0.002, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0)
+#61
+adagrad = optimizers.Adagrad(lr=0.01, epsilon=None, decay=0.0)
+# model.compile(loss='mean_squared_error', optimizer=adamax, metrics=['accuracy'])
+
+#with categorical_crossentropy
+#adamax - 69
+
+# poisson
+#adamax - 63
+model.compile(loss='categorical_crossentropy', optimizer=adamax, metrics=['accuracy'])
 
 print('Neural Network Model Summary: ')
 print(model.summary())
 
-# Train the model
-hist = model.fit(train_x, train_y, verbose=2, batch_size=5, epochs=200)
+# Train the model  batch_size=5,
+hist = model.fit(train_x, train_y, verbose=2,  batch_size=5, epochs=200)
 
 plt.figure(figsize=(10,8))
 plt.plot(hist.history['acc'], label='Accuracy')
@@ -75,5 +97,5 @@ plt.show()
 
 # Test on unseen data
 
-results = model.predict(test_x)
-print(results)
+# results = model.predict(test_x)
+# print(results)
