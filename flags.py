@@ -52,8 +52,8 @@ train_x, test_x, train_y, test_y = train_test_split(x, y, test_size=0.20)
 
 model = Sequential()
 
-model.add(Dense(16, input_shape=(23,), activation='relu', name='fc1'))
-model.add(Dense(50, activation='tanh', name='fc2'))
+model.add(Dense(23, input_shape=(23,), activation='relu', name='fc1'))
+model.add(Dense(100, activation='tanh', name='fc2'))
 model.add(Dense(8, activation='sigmoid', name='output'))
 
 # Adam optimizer with learning rate of 0.001
@@ -86,7 +86,7 @@ print('Neural Network Model Summary: ')
 print(model.summary())
 
 # Train the model  batch_size=5,
-hist = model.fit(train_x, train_y, verbose=2,  batch_size=5, epochs=200)
+hist = model.fit(train_x, train_y, verbose=2,  batch_size=2, epochs=500)
 
 plt.figure(figsize=(10,8))
 plt.plot(hist.history['acc'], label='Accuracy')
